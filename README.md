@@ -102,3 +102,36 @@ financial-10k-rag-chatbot/
 │   └── preprocess.py
 └── notebooks/
     └── experiments.ipynb
+```
+
+## Key Design Decisions
+
+### 1. Retrieval before generation
+A core design goal was to reduce hallucinations in financial QA. Rather than relying on the model’s internal knowledge, the system retrieves document evidence first and only then generates an answer.
+
+### 2. Chunked document representation
+10-K filings are too long to send directly into a model context window in a reliable way. Chunking makes retrieval more precise and allows the model to reason over narrower, more relevant evidence.
+
+### 3. Vector search with FAISS
+FAISS provides a lightweight and effective local vector database for semantic search. It was a practical choice for rapid prototyping and for a project that can be run locally.
+
+### 4. Prompting for grounded answers
+The system prompt explicitly encourages the model to:
+- answer only from retrieved context
+- distinguish between directly disclosed facts and inferred estimates
+- say when information is unavailable
+- avoid treating proxies as facts
+
+This is especially important in financial tasks where many seemingly simple questions cannot actually be answered directly from the filing.
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Leon131212/financial-10k-rag-chatbot.git
+cd financial-10k-rag-chatbot
+
+

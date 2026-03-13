@@ -1,0 +1,12 @@
+streamlit
+numpy
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-text-splitters
+langchain-ollama
+faiss-cpu
+pypdf
+pdfplumber
+rank-bm25

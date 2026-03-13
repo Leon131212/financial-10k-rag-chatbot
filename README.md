@@ -85,25 +85,6 @@ The chatbot follows a standard RAG pipeline:
 
 ---
 
-## Repository Structure
-
-```text
-financial-10k-rag-chatbot/
-├── app.py
-├── requirements.txt
-├── README.md
-├── data/
-│   └── sample_10k_files/
-├── vector_store/
-├── utils/
-│   ├── loader.py
-│   ├── retriever.py
-│   ├── prompts.py
-│   └── preprocess.py
-└── notebooks/
-    └── experiments.ipynb
-```
-
 ## Key Design Decisions
 
 ### 1. Retrieval before generation
@@ -154,13 +135,14 @@ On Windows:
 
   Create a .env file in the project root and add the required API key(s).
 
-
 ## Running the Application
 
 Launch the Streamlit app:
 ```
 streamlit run app.py
 ```
+
+---
 
 ## Evaluation Focus
 
@@ -177,6 +159,8 @@ These questions became especially important in tasks like:
 - extracting metrics that are not separately reported
 - identifying whether a number is directly disclosed or only indirectly inferable
 
+--- 
+
 ## Example Failure Mode the Project Addresses
 
 A strong language model may produce an answer that looks polished and analytical but is not actually supported by the filing. For example, a model may:
@@ -186,6 +170,8 @@ A strong language model may produce an answer that looks polished and analytical
 - overgeneralize risk factors across companies
 
 This system is designed to reduce those errors by forcing the answering process to begin with retrieval and evidence, not fluent guessing.
+
+---
 
 ## Limitations
 
@@ -197,6 +183,8 @@ Current limitations include:
 - some financial questions are fundamentally unanswerable from the filings alone
 - disclosure formats differ across companies, which makes direct comparison difficult
 - segment-level proxies can be tempting but methodologically dangerous if not clearly labeled as assumptions
+
+---
 
 ## What I Learned
 

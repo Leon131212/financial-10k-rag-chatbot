@@ -133,5 +133,86 @@ Clone the repository:
 ```bash
 git clone https://github.com/Leon131212/financial-10k-rag-chatbot.git
 cd financial-10k-rag-chatbot
+```
+
+On Windows:
+```
+  venv\Scripts\activate
+```
+
+  On macOS / Linux:
+```
+  source venv/bin/activate
+```
+
+  Install dependencies
+```
+  pip install -r requirements.txt
+```
+  ---
+  Environment Variables
+
+  Create a .env file in the project root and add the required API key(s).
 
 
+## Running the Application
+
+Launch the Streamlit app:
+```
+streamlit run app.py
+```
+
+## Evaluation Focus
+
+This project was evaluated less as a generic chatbot and more as a document-grounded financial assistant. The key questions during development were:
+
+- Does the system retrieve the right evidence?
+- Does the answer stay faithful to the retrieved context?
+- Can the model distinguish between direct disclosure and unsupported inference?
+- Does the system avoid fabricated precision when filings do not disclose a metric directly?
+
+These questions became especially important in tasks like:
+- AI revenue comparisons across firms
+- risk-factor comparisons
+- extracting metrics that are not separately reported
+- identifying whether a number is directly disclosed or only indirectly inferable
+
+## Example Failure Mode the Project Addresses
+
+A strong language model may produce an answer that looks polished and analytical but is not actually supported by the filing. For example, a model may:
+- relabel segment revenue as “AI revenue”
+- treat total capex as “AI capex”
+- present proxy-based calculations as if they were directly disclosed
+- overgeneralize risk factors across companies
+
+This system is designed to reduce those errors by forcing the answering process to begin with retrieval and evidence, not fluent guessing.
+
+## Limitations
+
+This project improves reliability, but it does not eliminate all failure modes.
+Current limitations include:
+- PDF parsing can miss or distort tables
+- retrieval quality depends heavily on chunk size and overlap
+- weak retrieval can still lead to weak answers
+- some financial questions are fundamentally unanswerable from the filings alone
+- disclosure formats differ across companies, which makes direct comparison difficult
+- segment-level proxies can be tempting but methodologically dangerous if not clearly labeled as assumptions
+
+## What I Learned
+
+This project reinforced an important lesson about applied LLM systems:
+
+Better models do not automatically produce better document-based answers.
+
+In financial QA, the key challenge is often not language generation but constraint. A model may sound intelligent while still drifting away from the source material. As a result, system design matters just as much as model choice.
+
+Through this project, I gained hands-on experience with:
+
+- building an end-to-end RAG pipeline
+- designing a document-grounded QA workflow
+- evaluating retrieval quality
+- identifying hallucination risks in finance-oriented prompts
+- distinguishing between direct evidence and model-generated inference
+
+### Author
+Chentong Xie
